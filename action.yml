@@ -1,25 +1,23 @@
-name: My Composite Action
+name: Lint Shell Scripts
 
-description: A composite action that ...
+description: A composite action for linting shell scripts.
 
 inputs:
-  my-input:
-    description: This is my input, there is no other input like it.
+  shellcheck-version:
+    description: The version of shellcheck to use.
+    default: 0.11.0
     required: false
-    default: The default description.
-
-outputs:
-  my-output:
-    description: The output this composite action produces.
-    value: steps.workflow-step.outputs.my-output
 
 runs:
   using: composite
   steps:
-    - name: Workflow Step
-      id: workflow-step
-      run: |-
-        printf 'my-output=%s\n' "${MY_INPUT}" >> "${GITHUB_OUTPUT}"
+    - name: Setup shellcheck
+      run: ${{ github.action_path }}/src/setup_shellcheck.sh
       shell: sh
       env:
-        MY_INPUT: inputs.my-input
+        SHELLCHECK_VERSION: ${{ inputs.shellcheck-version }}
+
+    - name: Lint Shell Scripts
+      run: |-
+        find . \( -path '*/.git' -o -path '*/.local' \) -prune -o -name '*.sh' -exec shellcheck {} +
+      shell: sh
