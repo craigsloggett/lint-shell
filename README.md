@@ -23,3 +23,9 @@ jobs:
       - name: Lint Shell Scripts
         uses: craigsloggett/lint-shell@v1
 ```
+
+### Inputs
+
+| Input                | Required? | Default  | Description                       |
+| -------------------- | --------- | -------- | --------------------------------- |
+| `shellcheck-version` | `false`   | `0.11.0` | The version of shellcheck to use. |
