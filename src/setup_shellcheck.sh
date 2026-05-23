@@ -17,7 +17,7 @@ esac
 github_releases_url="https://github.com/koalaman/shellcheck/releases/download"
 download_url="${github_releases_url}/v${SHELLCHECK_VERSION}/shellcheck-v${SHELLCHECK_VERSION}.${os}.${arch}.tar.xz"
 
-echo Installing shellcheck v${SHELLCHECK_VERSION}
+echo "Installing shellcheck v${SHELLCHECK_VERSION}"
 temp_dir=$(mktemp -d)
 curl -sSL "${download_url}" | tar -xJ -C "${temp_dir}" "shellcheck-v${SHELLCHECK_VERSION}/shellcheck"
 install -m 0755 "${temp_dir}/shellcheck-v${SHELLCHECK_VERSION}/shellcheck" /usr/local/bin/shellcheck
